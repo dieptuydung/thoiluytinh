@@ -8,7 +8,7 @@ import vn.edu.ntu.tuydung.model.Product;
 
 public class CartController extends Application implements ICartController {
     ArrayList<Product> listProduct = new ArrayList<>();
-
+    ArrayList<Product> listShop=new ArrayList<>();
     public CartController() {
         listProduct.add(new Product( "Xoài cát", 60000, "Xoài cát Hòa Lộc"));
         listProduct.add(new Product( "Bưởi", 50000, "Bưởi Năm Roi"));
@@ -23,5 +23,25 @@ public class CartController extends Application implements ICartController {
     public ArrayList<Product> getListProduct() {
         return listProduct;
 
+    }
+
+    @Override
+    public boolean addToShopping(Product p) {
+        if(!listShop.contains(p))
+        {
+            listShop.add(p);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public ArrayList<Product> getds() {
+        return listShop;
+    }
+
+    @Override
+    public void clearShopping() {
+        listShop.clear();
     }
 }
