@@ -24,23 +24,42 @@ import java.util.ArrayList;
 import vn.edu.ntu.tuydung.controller.ICartController;
 import vn.edu.ntu.tuydung.model.Product;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     ArrayList<Product> listProduct;
     ProductAdapter adapter;
     RecyclerView rvListProduct;
+    ImageView imvCart;
+    TextView txtQuantity;
+    ICartController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//nut quay lai
         addView();
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapter.notifyDataSetChanged();
+        if(txtQuantity!=null)
+            txtQuantity.setText(controller.getCartQuantity());
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater=getMenuInflater();
         inflater.inflate(R.menu.menu,menu);
+        MenuItem cartMenu =menu.findItem(R.id.mni);
+        txtQuantity=cartMenu.getActionView().findViewById(R.id.txtQuantity);
+        imvCart= cartMenu.getActionView().findViewById(R.id.imvCart);
+       imvCart.setOnClickListener(this);
+
+
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -74,6 +93,17 @@ public class MainActivity extends AppCompatActivity {
         rvListProduct.setAdapter(adapter);
 
     }
+    private void  calllayoutActivity(){
+        Intent intent = new Intent(this,layoutActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        calllayoutActivity();
+
+    }
+
     //lớp cài đặt cho việc hiển thị của một Product
     private  class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {   TextView txtname, txtprice,txtdesc;
@@ -96,10 +126,11 @@ public class MainActivity extends AppCompatActivity {
             txtdesc.setText(p.getDesc());
             imgBtn.setImageResource(R.drawable.ic_action_add_to_cart);
         }
-
+//Thêm sản phẩm vào giỏ hàng
         @Override
         public void onClick(View v) {
             ICartController controller=(ICartController) getApplication();
+
             if(!controller.addToShopping(p))
             {
                 Toast.makeText(MainActivity.this,"Sản phẩm đã có trong giỏ hàng",Toast.LENGTH_SHORT).show();
@@ -107,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
             else
             {
                 Toast.makeText(MainActivity.this,"Thêm Sản Phẩm:"+p.getName(),Toast.LENGTH_SHORT).show();
+                txtQuantity.setText(controller.getCartQuantity());
             }
 
         }

@@ -12,7 +12,12 @@
         android:id="@+id/txttt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Thông Tin sản phẩm" />
+
+        android:text="Thông Tin sản phẩm"
+        android:textColor="@color/colorRed"
+        android:textSize="20sp"/>
+
+
 
 
 
@@ -23,6 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="" />
+
+
 
 
 

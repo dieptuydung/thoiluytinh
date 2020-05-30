@@ -19,6 +19,8 @@ public class CartController extends Application implements ICartController {
 
     }
 
+
+
     @Override
     public ArrayList<Product> getListProduct() {
         return listProduct;
@@ -43,5 +45,11 @@ public class CartController extends Application implements ICartController {
     @Override
     public void clearShopping() {
         listShop.clear();
+    }
+    @Override
+    public String getCartQuantity() {
+        if(listShop.size()>0)
+            return new Integer(listShop.size()).toString();
+        return "";
     }
 }

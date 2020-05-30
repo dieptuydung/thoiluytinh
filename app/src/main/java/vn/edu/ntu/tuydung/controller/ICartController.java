@@ -9,5 +9,6 @@ public interface ICartController {
     public boolean addToShopping(Product p);
     public ArrayList<Product>getds();
     public void clearShopping();
+    public String getCartQuantity();
 
 }

@@ -28,10 +28,12 @@ public class layoutActivity extends AppCompatActivity {
     public void addView()
     {
         txtmh=findViewById(R.id.txtmh);
+
         btn1=findViewById(R.id.btnt);
         btn2=findViewById(R.id.btnx);
         callViewCart();
     }
+    //xóa sản phẩm
     public void addEvent()
     {
         final ICartController controller =(ICartController) getApplication();
@@ -40,11 +42,14 @@ public class layoutActivity extends AppCompatActivity {
             public void onClick(View v) {
                 controller.clearShopping();
                 txtmh.setText("xóa sản phẩm");
+
             }
         });
     }
 
-//lấy sản phẩm
+
+//Hiển thị sản sẩm
+
     private void callViewCart()
     {
         ICartController controller=(ICartController) getApplication();
